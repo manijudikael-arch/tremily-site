@@ -61,19 +61,17 @@
 
 <section class="devis" aria-labelledby="titre-devis">
   <h2 id="titre-devis" style="margin-top:0">Demander un devis</h2>
-  <a class="bouton" id="ouvrir" href="tremily://entreprises">Demander un devis</a>
-  <p class="petit">Le bouton ouvre le formulaire dans l’application Tremily.<br>
-    Pas encore l’application ? <a href="https://play.google.com/store/apps/details?id=com.tremily.app">La télécharger sur Google Play</a></p>
-  <p class="petit">Vous préférez écrire ? <a href="mailto:tremily@outlook.fr?subject=Demande%20de%20devis%20%C2%B7%20s%C3%A9minaire">tremily@outlook.fr</a></p>
+  <a class="bouton" href="mailto:tremily@outlook.fr?subject=Demande%20de%20devis%20%C2%B7%20s%C3%A9minaire">Demander un devis par e-mail</a>
+  <p class="petit">Écrivez à <a href="mailto:tremily@outlook.fr?subject=Demande%20de%20devis%20%C2%B7%20s%C3%A9minaire">tremily@outlook.fr</a> : nombre de personnes, date, ville et envies.</p>
+  <p class="petit">L’application est en test sur Android, bientôt sur Google Play. Vous l’avez déjà ? <a id="ouvrir" href="tremily://entreprises">Ouvrir le formulaire dans Tremily</a></p>
 </section>
 
 <footer><a href="confidentialite.html">Politique de confidentialité</a></footer>
 </main>
 <script>
-  // Sur Android, ce lien ouvre l'application si elle est installée, sinon Google Play.
+  // Sur Android, ce lien ouvre l'application si elle est installée, sinon il reste sur cette page.
   if (/Android/i.test(navigator.userAgent)) {
-    var play = 'https://play.google.com/store/apps/details?id=com.tremily.app';
-    document.getElementById('ouvrir').href = 'intent://entreprises#Intent;scheme=tremily;package=com.tremily.app;S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+    document.getElementById('ouvrir').href = 'intent://entreprises#Intent;scheme=tremily;package=com.tremily.app;S.browser_fallback_url=' + encodeURIComponent(location.href.split('#')[0]) + ';end';
   }
 </script>
 </body>
