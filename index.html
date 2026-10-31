@@ -3,22 +3,189 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tremily</title>
+<title>Tremily · Ne ratez plus rien autour de vous</title>
+<meta name="description" content="Tremily rassemble tout ce qui se passe et tout ce qu'il y a à voir autour de vous : sorties, visites, événements du quartier et séjours, avec l'accessibilité vérifiée.">
+<meta property="og:title" content="Tremily · Ne ratez plus rien autour de vous">
+<meta property="og:description" content="Sorties, visites, événements du quartier et séjours, avec l'accessibilité vérifiée. Sans publicité.">
+<meta property="og:image" content="https://manijudikael-arch.github.io/tremily-site/images/banniere.png">
+<meta property="og:locale" content="fr_FR">
+<link rel="icon" href="images/icone.png">
 <style>
-  :root { --fond: #F6F1E7; --encre: #1D2A22; --vert: #0F4C3A; --gris: #5E6A63; }
-  @media (prefers-color-scheme: dark) { :root { --fond: #16201A; --encre: #EDE7DA; --vert: #8CC5A8; --gris: #A9B3AC; } }
+  :root { --fond: #F6F1E7; --encre: #1D2A22; --vert: #0F4C3A; --moutarde: #D9A441; --gris: #5E6A63; --carte: #FFFFFF; --bord: #E7DFCF; --vertClair: #E4EEE7; --moutardeClair: #F4E3BE; --sombre: #0F4C3A; --surSombre: #F6F1E7; }
+  @media (prefers-color-scheme: dark) { :root { --fond: #16201A; --encre: #EDE7DA; --vert: #8CC5A8; --gris: #A9B3AC; --carte: #1F2B24; --bord: #2E3B33; --vertClair: #24382D; --moutardeClair: #4A3E22; --sombre: #0D2A20; --surSombre: #EDE7DA; } }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body { margin: 0; background: var(--fond); color: var(--encre); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  main { max-width: 720px; margin: 0 auto; padding: 48px 16px; }
-  h1 { font-family: Georgia, serif; font-size: 2.4rem; margin: 0; }
-  p { color: var(--gris); }
+  .bloc { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
   a { color: var(--vert); font-weight: 600; }
+  a:focus-visible { outline: 3px solid var(--moutarde); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3 { font-family: Georgia, serif; line-height: 1.15; }
+  h2 { font-size: 1.9rem; margin: 0 0 10px; }
+  .chapeau { color: var(--gris); margin: 0 0 28px; max-width: 620px; }
+
+  /* En-tête */
+  header { padding: 16px 0; }
+  header .bloc { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--encre); font-family: Georgia, serif; font-size: 1.5rem; font-weight: 700; }
+  .logo img { width: 40px; height: 40px; border-radius: 12px; }
+  .logo span::after { content: "."; color: var(--moutarde); }
+  nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.95rem; }
+  nav a { text-decoration: none; color: var(--encre); font-weight: 500; }
+
+  /* Haut de page */
+  .une { padding: 28px 0 56px; }
+  .une .bloc { display: grid; gap: 36px; align-items: center; }
+  .une h1 { font-size: clamp(2.2rem, 7vw, 3.4rem); margin: 0 0 14px; }
+  .une p { color: var(--gris); font-size: 1.1rem; margin: 0 0 24px; }
+  .boutons { display: flex; gap: 12px; flex-wrap: wrap; }
+  .bouton { display: inline-block; background: var(--vert); color: var(--fond); text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 14px; }
+  .bouton.clair { background: transparent; color: var(--vert); border: 2px solid var(--vert); }
+  .etiquette { display: inline-block; background: var(--moutardeClair); color: var(--encre); font-size: 0.85rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; }
+  .telephones { display: flex; justify-content: center; gap: 16px; }
+  .telephone { width: min(44vw, 230px); border-radius: 28px; border: 6px solid var(--encre); box-shadow: 0 18px 40px rgba(0,0,0,.18); background: var(--encre); }
+  .telephone:nth-child(2) { margin-top: 48px; }
+  @media (min-width: 820px) { .une .bloc { grid-template-columns: 1.1fr 1fr; } }
+
+  /* Sections */
+  section { padding: 56px 0; }
+  .grille { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .carte { background: var(--carte); border: 1px solid var(--bord); border-radius: 18px; padding: 20px; }
+  .carte h3 { font-size: 1.15rem; margin: 10px 0 6px; }
+  .carte p { color: var(--gris); margin: 0; font-size: 0.97rem; }
+  .pastille { width: 46px; height: 46px; border-radius: 50%; background: var(--vertClair); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; }
+
+  .access { background: var(--sombre); color: var(--surSombre); }
+  .access h2 { color: var(--surSombre); }
+  .access .chapeau { color: var(--surSombre); opacity: .85; }
+  .access ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .access li { background: rgba(255,255,255,.07); border-radius: 14px; padding: 14px 16px; }
+  .access li strong { display: block; color: var(--moutarde); }
+
+  .publics { display: flex; flex-wrap: wrap; gap: 10px; }
+  .publics span { background: var(--carte); border: 1px solid var(--bord); border-radius: 999px; padding: 8px 16px; font-weight: 500; }
+
+  .duo { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .duo .carte { padding: 24px; }
+  .duo .carte p { margin-bottom: 16px; }
+
+  .valeurs { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--gris); padding: 0; margin: 24px 0 0; list-style: none; }
+  .valeurs li::before { content: "✓ "; color: var(--vert); font-weight: 700; }
+
+  .final { text-align: center; }
+  .final .chapeau { margin-left: auto; margin-right: auto; }
+  .final .boutons { justify-content: center; }
+
+  footer { border-top: 1px solid var(--bord); padding: 24px 0 40px; color: var(--gris); font-size: 0.92rem; }
+  footer .bloc { display: flex; gap: 8px 20px; flex-wrap: wrap; justify-content: space-between; }
+  footer nav a { color: var(--gris); }
 </style>
 </head>
 <body>
+
+<header>
+  <div class="bloc">
+    <a class="logo" href="./"><img src="images/icone.png" alt=""><span>tremily</span></a>
+    <nav aria-label="Menu">
+      <a href="#application">L’application</a>
+      <a href="#accessibilite">Accessibilité</a>
+      <a href="entreprises.html">Entreprises</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
 <main>
-<h1>Tremily</h1>
-<p>Dites-nous avec qui vous sortez, on vous compose une vraie journée, vérifiée, à deux pas de chez vous.</p>
-<p><a href="confidentialite.html">Politique de confidentialité</a> · <a href="mailto:tremily@outlook.com">Contact</a></p>
+<div class="une">
+  <div class="bloc">
+    <div>
+      <span class="etiquette">Bientôt sur Google Play · Dijon d’abord, puis toute la France</span>
+      <h1>Ne ratez plus rien autour de vous</h1>
+      <p>Tout ce qui se passe et tout ce qu’il y a à voir, là où vous êtes ou là où vous partez : concerts, brocantes, musées, parcs, et même le tournoi de pétanque du quartier. Réuni dans une seule application, quel que soit votre budget.</p>
+      <div class="boutons">
+        <a class="bouton" href="#contact">Être prévenu de la sortie</a>
+        <a class="bouton clair" href="#application">Découvrir</a>
+      </div>
+    </div>
+    <div class="telephones">
+      <img class="telephone" src="images/accueil.jpg" alt="Écran d’accueil de Tremily : le Palais des Ducs à Dijon en photo, puis les onglets Autour de moi et Mon séjour.">
+      <img class="telephone" src="images/temps-libre.jpg" alt="Écran « Du temps devant vous ? » : trois idées possibles maintenant, à l’abri car il pleut, avec la distance à pied.">
+    </div>
+  </div>
+</div>
+
+<section id="application">
+  <div class="bloc">
+    <h2>Ce que fait Tremily</h2>
+    <p class="chapeau">Que vous habitiez la ville, que vous y arriviez pour vos études ou que vous y passiez vos vacances.</p>
+    <div class="grille">
+      <div class="carte"><div class="pastille" aria-hidden="true">📍</div><h3>Ce qui se passe, tout de suite</h3><p>Concerts, spectacles, fêtes, marchés, expositions, cinéma, et les petits rendez-vous du quartier.</p></div>
+      <div class="carte"><div class="pastille" aria-hidden="true">🏛️</div><h3>Les lieux à voir</h3><p>Monuments, musées, parcs, lacs, points de vue, avec leurs vraies photos.</p></div>
+      <div class="carte"><div class="pastille" aria-hidden="true">⏱️</div><h3>Du temps devant vous ?</h3><p>1 h, 2 h ou une demi-journée : trois idées réellement possibles maintenant, à l’abri s’il pleut.</p></div>
+      <div class="carte"><div class="pastille" aria-hidden="true">🗓️</div><h3>Mon séjour</h3><p>Choisissez vos dates et placez chaque sortie au jour et à l’heure voulus, sur plusieurs jours.</p></div>
+      <div class="carte"><div class="pastille" aria-hidden="true">👨‍👩‍👧</div><h3>À plusieurs</h3><p>Partagez votre séjour avec la famille ou les amis : chacun peut ajouter ou modifier une sortie.</p></div>
+      <div class="carte"><div class="pastille" aria-hidden="true">✅</div><h3>Des informations vérifiées</h3><p>Jamais la photo d’un autre lieu, et la source de chaque fiche est indiquée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="accessibilite" class="access">
+  <div class="bloc">
+    <h2>L’accessibilité d’abord</h2>
+    <p class="chapeau">Tremily est pensée dès le départ pour les personnes aveugles, malvoyantes, sourdes, malentendantes ou en fauteuil.</p>
+    <ul>
+      <li><strong>Lecteur d’écran</strong>Toute l’application fonctionne avec TalkBack, et chaque fiche peut être lue à voix haute.</li>
+      <li><strong>Sourds et malentendants</strong>Séances sous-titrées, boucles magnétiques signalées.</li>
+      <li><strong>Aveugles et malvoyants</strong>Audiodescription au cinéma, lieux labellisés Tourisme &amp; Handicap.</li>
+      <li><strong>En fauteuil</strong>Accès et équipements de chaque lieu, d’après Acceslibre.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="bloc">
+    <h2>Pour qui ?</h2>
+    <p class="chapeau">Pour tout le monde, à égalité.</p>
+    <div class="publics">
+      <span>Familles</span><span>Vacanciers</span><span>Habitants du quartier</span><span>Étudiants qui arrivent en ville</span><span>Célibataires qui veulent sortir</span><span>Personnes en situation de handicap</span><span>Petits et grands budgets</span>
+    </div>
+    <ul class="valeurs">
+      <li>Gratuite</li><li>Sans publicité</li><li>Sans pisteur publicitaire</li><li>Utilisable sans compte</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="bloc">
+    <h2>Pour les professionnels</h2>
+    <p class="chapeau">Tremily aide aussi ceux qui organisent et ceux qui informent.</p>
+    <div class="duo">
+      <div class="carte"><div class="pastille" aria-hidden="true">💼</div><h3>Entreprises</h3><p>Séminaires et sorties d’équipe préparés pour vous : salles de réunion, activités, repas et hôtels, partout en France, pour 2 à 2000 personnes.</p><a href="entreprises.html">Demander un devis →</a></div>
+      <div class="carte"><div class="pastille" aria-hidden="true">🏢</div><h3>Mairies, associations, organisateurs</h3><p>Faites connaître vos événements, même les plus petits, aux habitants et aux visiteurs.</p><a href="mailto:tremily@outlook.fr?subject=Publier%20nos%20%C3%A9v%C3%A9nements%20sur%20Tremily">Nous écrire →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="final">
+  <div class="bloc">
+    <h2>Envie d’essayer Tremily ?</h2>
+    <p class="chapeau">L’application est en test sur Android. Écrivez-nous pour être prévenu de sa sortie ou pour faire partie des testeurs.</p>
+    <div class="boutons">
+      <a class="bouton" href="mailto:tremily@outlook.fr?subject=Je%20veux%20essayer%20Tremily">tremily@outlook.fr</a>
+    </div>
+  </div>
+</section>
 </main>
+
+<footer>
+  <div class="bloc">
+    <span>© 2026 Tremily · Fait à Dijon</span>
+    <nav aria-label="Liens du bas de page">
+      <a href="entreprises.html">Tremily Entreprises</a>
+      <a href="confidentialite.html">Politique de confidentialité</a>
+      <a href="mailto:tremily@outlook.fr">Contact</a>
+    </nav>
+  </div>
+</footer>
+
 </body>
 </html>
